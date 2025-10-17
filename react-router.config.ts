@@ -7,4 +7,7 @@ export default {
     const posts = getPosts();
     return posts.map((post) => `/post/${post.slug}`);
   },
+  future: {
+    unstable_viteEnvironmentApi: true,
+  },
 } satisfies Config;
