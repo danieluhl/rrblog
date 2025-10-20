@@ -59,7 +59,6 @@ function getPostByFileName(fileName: string): Post {
 
 export function getPostBySlug(slug: string) {
   const posts = getPosts();
-  console.log({ posts });
   const post = posts.find((post) => post.slug === slug);
   if (!post) {
     throw new Error(`Post with slug "${slug}" not found`);
