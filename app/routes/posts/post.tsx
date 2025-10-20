@@ -1,7 +1,7 @@
 import Markdown from "react-markdown";
-import { getPostBySlug } from "@/utils/get-posts.server";
 import { Button } from "~/components/ui/button";
-import type { Route } from "./+types/post";
+import { getPostBySlug } from "../../../utils/get-posts.server";
+import type { Route } from "../+types/post";
 
 export async function loader({ params }: Route.LoaderArgs) {
   const post = getPostBySlug(params.slug);

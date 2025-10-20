@@ -1,4 +1,3 @@
-import { Welcome } from "../welcome/welcome";
 import type { Route } from "./+types/home";
 
 // biome-ignore lint/correctness/noEmptyPattern: we want the type in case we need these later
@@ -10,5 +9,5 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Home() {
-  return <Welcome />;
+  return <div>hello</div>;
 }
