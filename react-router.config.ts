@@ -1,5 +1,5 @@
 import type { Config } from "@react-router/dev/config";
-import { getPosts } from "./utils/get-posts.server";
+import { getPosts } from "./app/utils/get-posts.server";
 
 export default {
   ssr: true,

@@ -24,7 +24,7 @@ body {
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
   --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-foreground: var(--fg);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
   --color-popover: var(--popover);
@@ -54,14 +54,46 @@ body {
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+
+  --color-light: var(--bg-light);
+  --color-bg: var(--background);
+  --color-dark: var(--bg-dark);
+  --color-text: var(--text);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-fg: var(--fg);
+  --color-fg-dim: var(--fg-dim);
+  --color-fg-faded: var(--fg-faded);
 }
 
 :root {
+  --bg-light: oklch(96.8% 0.007 247.896);
+  --background: oklch(92.9% 0.013 255.508);
+  --bg-dark: oklch(87.2% 0.01 258.338);
+  --fg: oklch(20.8% 0.042 265.755);
+  --fg-dim: oklch(37.2% 0.044 257.287);
+  --fg-faded: oklch(55.4% 0.046 257.417);
+
+  --gradient: linear-gradient(
+    0deg,
+    var(--background) 90%,
+    oklch(from var(--bg-light) l c h / 50%)
+  );
+  --gradient-hover: linear-gradient(
+    0deg,
+    var(--background),
+    oklch(from var(--bg-light) l c h / 50%)
+  );
+
+  --shadow-sm:
+    inset 0 1px 4px #ffffff20, 0 1px 2px #00000030, 0 2px 4px #00000015;
+  --shadow-md:
+    inset 0 1px 4px #ffffff20, 0 2px 4px #00000030, 0 4px 8px #00000015;
+
+  --card: var(--background);
+  --card-foreground: var(--fg);
+
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.129 0.042 264.695);
   --primary: oklch(0.208 0.042 265.755);
@@ -69,7 +101,7 @@ body {
   --secondary: oklch(0.968 0.007 247.896);
   --secondary-foreground: oklch(0.208 0.042 265.755);
   --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
+  --muted-foreground: oklch(0.3 0.046 257.417);
   --accent: oklch(0.968 0.007 247.896);
   --accent-foreground: oklch(0.208 0.042 265.755);
   --destructive: oklch(0.577 0.245 27.325);
@@ -91,11 +123,15 @@ body {
   --sidebar-ring: oklch(0.704 0.04 256.788);
 }
 
-.dark {
-  --background: oklch(0.129 0.042 264.695);
-  --foreground: oklch(0.984 0.003 247.858);
-  --card: oklch(0.208 0.042 265.755);
-  --card-foreground: oklch(0.984 0.003 247.858);
+.dark,
+:root[class~="dark"] {
+  --bg-light: oklch(37.2% 0.044 257.287);
+  --background: oklch(27.9% 0.041 260.031);
+  --bg-dark: oklch(21% 0.034 264.665);
+  --fg: oklch(92.9% 0.013 255.508);
+  --fg-dim: oklch(70.4% 0.04 256.788);
+  --fg-faded: oklch(55.4% 0.046 257.417);
+
   --popover: oklch(0.208 0.042 265.755);
   --popover-foreground: oklch(0.984 0.003 247.858);
   --primary: oklch(0.929 0.013 255.508);
@@ -125,14 +161,45 @@ body {
   --sidebar-ring: oklch(0.551 0.027 264.364);
 }
 
+@utility bg-gradient {
+  background: var(--gradient);
+}
+
+@utility bg-gradient-hover {
+  background: var(--gradient-hover);
+}
+
+@utility shadow-sm {
+  box-shadow: var(--shadow-sm);
+}
+
+@utility shadow-md {
+  box-shadow: var(--shadow-md);
+}
+
+@utility title-font {
+  font-family:
+    "Montserrat", Inter, ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
-  button {
-    @apply cursor-pointer;
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
   }
   body {
     @apply bg-background text-foreground;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply title-font;
   }
 }

@@ -1,7 +1,9 @@
 import Markdown from "react-markdown";
-import { Button } from "~/components/ui/button";
-import { getPostBySlug } from "../../../utils/get-posts.server";
-import type { Route } from "../+types/post";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { dark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import remarkGfm from "remark-gfm";
+import { getPostBySlug } from "../../utils/get-posts.server";
+import type { Route } from "./+types/post";
 
 export async function loader({ params }: Route.LoaderArgs) {
   const post = getPostBySlug(params.slug);
@@ -17,11 +19,37 @@ export function meta({ loaderData }: Route.MetaArgs) {
 
 export default function Post({ loaderData }: Route.ComponentProps) {
   return (
-    <div>
-      <Button>Click me</Button>
-      <h1>{loaderData.title}</h1>
-      <small>{loaderData.description}</small>
-      <Markdown>{loaderData.content}</Markdown>
+    <div className="flex items-center flex-col gap-8">
+      <header className="flex flex-col gap-2 items-center">
+        <h1 className="title-font text-6xl text-fg">{loaderData.title}</h1>
+        <p className="text-muted-foreground">{loaderData.description}</p>
+      </header>
+      <div className="w-full text-lg">
+        <Markdown
+          remarkPlugins={[remarkGfm]}
+          components={{
+            code(props) {
+              const { children, className, ...rest } = props;
+              const match = /language-(\w+)/.exec(className || "");
+              return match ? (
+                <SyntaxHighlighter
+                  PreTag="div"
+                  language={match[1]}
+                  style={dark}
+                >
+                  {String(children).replace(/\n$/, "")}
+                </SyntaxHighlighter>
+              ) : (
+                <code {...rest} className={className}>
+                  {children}
+                </code>
+              );
+            },
+          }}
+        >
+          {loaderData.content}
+        </Markdown>
+      </div>
     </div>
   );
 }

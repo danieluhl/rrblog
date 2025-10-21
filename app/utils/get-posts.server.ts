@@ -3,7 +3,7 @@ import { extname, join } from "node:path";
 import matter from "gray-matter";
 import { type PostMeta, PostMetaSchema } from "../types/posts-types";
 
-const postsDirectory = join(process.cwd(), "content");
+const postsDirectory = join(process.cwd(), "app/content");
 const postFileExtensions = [".md"];
 
 export function getPosts(dir: string = postsDirectory) {
@@ -52,7 +52,7 @@ function getPostByFileName(fileName: string): Post {
 
   return {
     slug: items.title.toLowerCase().replaceAll(" ", "-"),
-    content: content,
+    content,
     ...items,
   };
 }
