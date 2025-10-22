@@ -1,10 +1,5 @@
 import { Link } from "react-router";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-} from "~/components/ui/card";
+import { Card, CardContent } from "~/components/ui/card";
 import { formatDate } from "~/utils/formatting";
 import { getPosts } from "~/utils/get-posts.server";
 import type { Route } from "./+types/home";

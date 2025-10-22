@@ -1,9 +1,14 @@
-import { readdirSync, readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { extname, join } from "node:path";
 import matter from "gray-matter";
 import { type PostMeta, PostMetaSchema } from "../types/posts-types";
 
-const postsDirectory = join(process.cwd(), "app/content");
+const devPostsDirectory = join(process.cwd(), "app/content");
+const prodPostsDirectory = join(process.cwd(), "content");
+
+const postsDirectory = existsSync(devPostsDirectory)
+  ? devPostsDirectory
+  : prodPostsDirectory;
 const postFileExtensions = [".md"];
 
 export function getPosts(dir: string = postsDirectory) {

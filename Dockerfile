@@ -30,5 +30,6 @@ ENV PATH="$PNPM_HOME:$PATH"
 COPY ./package.json pnpm-lock.yaml /app/
 COPY --from=production-dependencies-env /app/node_modules /app/node_modules
 COPY --from=build-env /app/build /app/build
+COPY ./app/content /app/content
 WORKDIR /app
 CMD ["pnpm", "run", "start"]

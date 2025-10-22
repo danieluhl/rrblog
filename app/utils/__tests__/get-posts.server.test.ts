@@ -39,8 +39,10 @@ Hello First
     expect(posts[0]).toEqual(
       expect.objectContaining({
         title: "First Post",
+        slug: "first-post",
+        description: "this is the first post",
         pubDatetime: new Date("2025-10-16T15:28:11Z"),
-        tags: ["coding", "philosophy"],
+        tags: [tags[0], tags[1]],
         content: "\n\nHello First\n",
       }),
     );

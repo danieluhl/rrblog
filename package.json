@@ -4,8 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "react-router build",
-    "cf-typegen": "wrangler types",
-    "deploy": "pnpm run build && wrangler deploy",
+    "deploy": "pnpm run build && fly deploy",
     "dev": "react-router dev",
     "lint": "biome check",
     "lint:fix": "biome check --write",
