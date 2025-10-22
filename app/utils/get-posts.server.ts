@@ -7,19 +7,16 @@ const postsDirectory = join(process.cwd(), "app/content");
 const postFileExtensions = [".md"];
 
 export function getPosts(dir: string = postsDirectory) {
-  const fileNames = getAllFileNames(dir, postFileExtensions);
-  const posts = fileNames.map(getPostByFileName);
+  // paths relative to the app/content directory
+  const filePaths = getAllFileNames(dir, postFileExtensions);
+  const posts = filePaths.map(getPostByFileName);
   return posts;
 }
 
 function getAllFileNames(dir: string, extensions: string[]) {
-  const files = readdirSync(dir);
-  return files.reduce((acc: string[], file: string) => {
-    if (extensions.includes(extname(file))) {
-      acc.push(join(dir, file));
-    }
-    return acc;
-  }, []);
+  return readdirSync(dir, { recursive: true, encoding: "utf8" })
+    .filter((file) => extensions.includes(extname(file)))
+    .map((file) => join(dir, file));
 }
 
 type Post = PostMeta & {
@@ -28,6 +25,7 @@ type Post = PostMeta & {
 };
 
 function getPostByFileName(fileName: string): Post {
+  console.log(fileName);
   const source = readFileSync(fileName, "utf8");
   const { data, content } = matter(source);
 

@@ -25,24 +25,24 @@ export async function loader() {
 export default function Home({ loaderData }: Route.ComponentProps) {
   const posts = loaderData.posts;
   return (
-    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 items-stretch">
       {posts.map((post) => (
         <Link key={post.slug} to={`/post/${post.slug}`}>
-          <Card className="gap-2">
-            <CardHeader>
-              <h1 className="text-2xl">{post.title}</h1>
-            </CardHeader>
-            <CardContent>{post.description}</CardContent>
-            <CardFooter>
+          <Card className="gap-2 h-full hover:bg-light">
+            <CardContent className="flex justify-between flex-col h-full">
+              <div>
+                <h1 className="text-2xl">{post.title}</h1>
+                {post.description === post.title ? "" : post.description}
+              </div>
               <small className="flex gap-2 text-muted-foreground">
-                <span>{formatDate(post.updateDate)}</span>
+                <span>{formatDate(post.pubDatetime)}</span>
                 {post.tags.map((tag) => (
                   <span key={tag} className="">
                     #{tag}
                   </span>
                 ))}
               </small>
-            </CardFooter>
+            </CardContent>
           </Card>
         </Link>
       ))}

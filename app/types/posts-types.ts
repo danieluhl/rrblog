@@ -1,12 +1,14 @@
 import { z } from "zod";
 
 export const tags = [
-  "coding",
+  "programming",
+  "management",
   "philosophy",
   "productivity",
   "life",
   "products",
   "design",
+  "upkeep",
 ] as const;
 
 export const TagsSchema = z
@@ -27,7 +29,7 @@ export type Tags = z.infer<typeof TagsSchema>;
 export const PostMetaSchema = z.object({
   title: z.string(),
   description: z.string(),
-  updateDate: z.date(),
+  pubDatetime: z.date(),
   tags: TagsSchema,
 });
 

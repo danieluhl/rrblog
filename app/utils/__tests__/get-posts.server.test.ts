@@ -20,7 +20,7 @@ describe("getPosts", () => {
         "./valid-post.md": `---
 title: First Post
 description: this is the first post
-updateDate: 2025-10-16T15:28:11Z
+pubDatetime: 2025-10-16T15:28:11Z
 tags:
   - ${tags[0]}
   - ${tags[1]}
@@ -39,7 +39,7 @@ Hello First
     expect(posts[0]).toEqual(
       expect.objectContaining({
         title: "First Post",
-        updateDate: new Date("2025-10-16T15:28:11Z"),
+        pubDatetime: new Date("2025-10-16T15:28:11Z"),
         tags: ["coding", "philosophy"],
         content: "\n\nHello First\n",
       }),
@@ -51,7 +51,7 @@ Hello First
       {
         "./invalid-post.md": `---
 title: Second Post
-updateDate: 2025-10-16T15:28:11Z
+pubDatetime: 2025-10-16T15:28:11Z
 description: this is the first post
 tags:
   - bad
@@ -70,7 +70,7 @@ Hello Second
     vol.fromJSON(
       {
         "./invalid-post.md": `---
-updateDate: 2025-10-16T15:28:11Z
+pubDatetime: 2025-10-16T15:28:11Z
 description: this is the first post
 tags:
   - coding
@@ -108,7 +108,7 @@ Hello Second
         "./invalid-post.md": `---
 title: Second Post
 description: this is the first post
-updateDate: 2025-10-16T15:28:11Z
+pubDatetime: 2025-10-16T15:28:11Z
 ---
 Hello Second
 `,
