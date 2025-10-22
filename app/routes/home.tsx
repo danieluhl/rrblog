@@ -13,7 +13,9 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export async function loader() {
-  const posts = getPosts();
+  const posts = getPosts().sort((a, b) => {
+    return b.pubDatetime.getTime() - a.pubDatetime.getTime();
+  });
   return { posts };
 }
 

@@ -1,6 +1,11 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/preflight.css" layer(base);
+@import "tailwindcss/utilities.css" layer(utilities);
+
 @custom-variant dark (&:is(.dark *));
 
 @theme {
@@ -200,6 +205,35 @@ body {
   h4,
   h5,
   h6 {
-    @apply title-font;
+    @apply title-font pt-8 pb-6;
+  }
+
+  h1 {
+    @apply text-3xl;
+  }
+  h2 {
+    @apply text-3xl;
+  }
+  h3 {
+    @apply text-2xl;
+  }
+  h4 {
+    @apply text-xl;
+  }
+  h5 {
+    @apply text-lg font-bold;
+  }
+  p {
+    @apply py-0;
+  }
+  ol,
+  ul {
+    @apply list-outside pl-4 space-y-4;
+  }
+  ol {
+    @apply list-disc;
+  }
+  ul {
+    @apply list-decimal;
   }
 }

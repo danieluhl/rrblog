@@ -30,7 +30,6 @@ type Post = PostMeta & {
 };
 
 function getPostByFileName(fileName: string): Post {
-  console.log(fileName);
   const source = readFileSync(fileName, "utf8");
   const { data, content } = matter(source);
 

@@ -20,11 +20,11 @@ export function meta({ loaderData }: Route.MetaArgs) {
 export default function Post({ loaderData }: Route.ComponentProps) {
   return (
     <div className="flex items-center flex-col gap-8">
-      <header className="flex flex-col gap-2 items-center">
+      <header className="flex flex-col items-center">
         <h1 className="title-font text-6xl text-fg">{loaderData.title}</h1>
         <p className="text-muted-foreground">{loaderData.description}</p>
       </header>
-      <div className="w-full text-lg">
+      <div className="w-full text-lg space-y-4 font-light tracking-wide">
         <Markdown
           remarkPlugins={[remarkGfm]}
           components={{
