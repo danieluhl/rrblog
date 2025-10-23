@@ -11,10 +11,17 @@ const postsDirectory = existsSync(devPostsDirectory)
   : prodPostsDirectory;
 const postFileExtensions = [".md"];
 
+// const postsCache: Post[] = [];
+
 export function getPosts(dir: string = postsDirectory) {
+  // if (postsCache.length > 0) {
+  //   return postsCache;
+  // }
   // paths relative to the app/content directory
   const filePaths = getAllFileNames(dir, postFileExtensions);
-  const posts = filePaths.map(getPostByFileName);
+  const posts = filePaths.map(getPostByFileName).sort((a, b) => {
+    return b.pubDatetime.getTime() - a.pubDatetime.getTime();
+  });
   return posts;
 }
 
@@ -59,11 +66,19 @@ function getPostByFileName(fileName: string): Post {
   };
 }
 
-export function getPostBySlug(slug: string) {
+export function getPostBySlug(slug: string): {
+  prevPost: Post | undefined;
+  post: Post;
+  nextPost: Post | undefined;
+} {
   const posts = getPosts();
-  const post = posts.find((post) => post.slug === slug);
-  if (!post) {
+  const postIndex = posts.findIndex((post) => post.slug === slug);
+  if (postIndex === -1) {
     throw new Error(`Post with slug "${slug}" not found`);
   }
-  return post;
+  return {
+    prevPost: posts[postIndex - 1],
+    post: posts[postIndex],
+    nextPost: posts[postIndex + 1],
+  };
 }

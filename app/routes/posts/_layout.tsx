@@ -6,11 +6,9 @@ export default function PostLayout() {
     <div className="grid place-items-center h-full min-h-screen bg-dark">
       <div className="w-full flex flex-col gap-4 h-full min-h-screen py-12 max-w-4xl px-12">
         <nav className="flex justify-between w-full gap-8 items-center">
-          <div className="flex">
-            <Link className="text-xl text-muted-foreground title-font" to="/">
-              The Pixelated Pond
-            </Link>
-          </div>
+          <Link className="text-xl text-muted-foreground title-font" to="/">
+            The Pixelated Pond
+          </Link>
           <ThemePicker />
         </nav>
         <div className="grow-1">
